@@ -171,7 +171,7 @@
 					<key>match</key>
 					<string>(?x)
 (?!/\*|\*/|//)
-( [-/=+!*%&lt;&gt;&amp;|^~]+
+( [-/=+!*%&lt;&gt;&amp;|^~?]+
 | \.\.&lt;
 | \.\.+
 )
@@ -259,6 +259,7 @@
 ( \b[_a-zA-Z][_a-zA-Z0-9]*\b
 | `[_a-zA-Z][_a-zA-Z0-9]*`
 | [-/=+!*%&lt;&gt;&amp;|^~]+
+| \?\?
 | \.\.&lt;
 | \.\.+
 )
@@ -947,6 +948,7 @@
 |(?:[(){}.,;@#`]|\[|\])[^-/=+!*%&lt;&gt;&amp;|^~]
 )
 ( [-/=+!*%&lt;&gt;&amp;|^~]+
+| \?\?
 | \.\.&lt;
 | \.\.+
 )
@@ -1137,7 +1139,7 @@
 				</dict>
 				<dict>
 					<key>begin</key>
-					<string>(?&lt;=\s)(\?)\s*</string>
+					<string>(?&lt;=\s)(\?)(?=[^-/=+!*%&lt;&gt;&amp;|^~])\s*</string>
 					<key>beginCaptures</key>
 					<dict>
 						<key>1</key>
@@ -1448,14 +1450,52 @@
 					</array>
 				</dict>
 				<dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.var.swift</string>
+						</dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>variable.swift</string>
+						</dict>
+					</dict>
 					<key>match</key>
-					<string>\bvar\b</string>
+					<string>(?x)
+\b
+(var)\s+
+( \b[_a-zA-Z][_a-zA-Z0-9]*
+| `[_a-zA-Z][_a-zA-Z0-9]*`
+)?
+</string>
 					<key>name</key>
 					<string>keyword.var.swift</string>
 				</dict>
 				<dict>
+					<key>captures</key>
+					<dict>
+						<key>1</key>
+						<dict>
+							<key>name</key>
+							<string>keyword.let.swift</string>
+						</dict>
+						<key>2</key>
+						<dict>
+							<key>name</key>
+							<string>variable.swift</string>
+						</dict>
+					</dict>
 					<key>match</key>
-					<string>\blet\b</string>
+					<string>(?x)
+\b
+(let)\s+
+( \b[_a-zA-Z][_a-zA-Z0-9]*
+| `[_a-zA-Z][_a-zA-Z0-9]*`
+)?
+</string>
 					<key>name</key>
 					<string>keyword.let.swift</string>
 				</dict>
@@ -1494,7 +1534,7 @@
 )
 </string>
 					<key>name</key>
-					<string>variable.swift</string>
+					<string>support.type.identifier</string>
 				</dict>
 				<dict>
 					<key>begin</key>
@@ -1505,6 +1545,17 @@
 					<string>tuple-pattern.swift</string>
 					<key>patterns</key>
 					<array>
+						<dict>
+							<key>match</key>
+							<string>(?x)
+(?!\b(?:as|is|let|var)\b)
+( \b[_a-zA-Z][_a-zA-Z0-9]*\b
+| `[_a-zA-Z][_a-zA-Z0-9]*`
+)
+</string>
+							<key>name</key>
+							<string>variable.swift</string>
+						</dict>
 						<dict>
 							<key>include</key>
 							<string>#pattern</string>

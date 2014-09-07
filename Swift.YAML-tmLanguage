@@ -84,6 +84,7 @@ repository:
                 ( \b[_a-zA-Z][_a-zA-Z0-9]*\b
                 | `[_a-zA-Z][_a-zA-Z0-9]*`
                 | [-/=+!*%<>&|^~]+
+                | \?\?
                 | \.\.<
                 | \.\.+
                 )
@@ -400,10 +401,28 @@ repository:
               - include: '#type'
 
           - name: keyword.var.swift
-            match: \bvar\b
+            match: |
+                (?x)
+                \b
+                (var)\s+
+                ( \b[_a-zA-Z][_a-zA-Z0-9]*
+                | `[_a-zA-Z][_a-zA-Z0-9]*`
+                )?
+            captures:
+                '1': {name: keyword.var.swift}
+                '2': {name: variable.swift}
 
           - name: keyword.let.swift
-            match: \blet\b
+            match: |
+                (?x)
+                \b
+                (let)\s+
+                ( \b[_a-zA-Z][_a-zA-Z0-9]*
+                | `[_a-zA-Z][_a-zA-Z0-9]*`
+                )?
+            captures:
+                '1': {name: keyword.let.swift}
+                '2': {name: variable.swift}
 
           - name: enum-case-pattern.swift
             match: |
@@ -419,7 +438,7 @@ repository:
                 '1': {name: support.type.identifier.swift}
                 '2': {name: support.function.swift}
 
-          - name: variable.swift
+          - name: support.type.identifier
             match: |
                 (?x)
                 ( \b[_a-zA-Z][_a-zA-Z0-9]*\b
@@ -430,6 +449,14 @@ repository:
             begin: \(
             end: \)
             patterns:
+              - name: variable.swift
+                match: |
+                    (?x)
+                    (?!\b(?:as|is|let|var)\b)
+                    ( \b[_a-zA-Z][_a-zA-Z0-9]*\b
+                    | `[_a-zA-Z][_a-zA-Z0-9]*`
+                    )
+
               - include: '#pattern'
 
               - match: ','
@@ -449,6 +476,7 @@ repository:
                 |(?:[(){}.,;@#`]|\[|\])[^-/=+!*%<>&|^~]
                 )
                 ( [-/=+!*%<>&|^~]+
+                | \?\?
                 | \.\.<
                 | \.\.+
                 )
@@ -541,7 +569,7 @@ repository:
               - include: '#expression'
 
           - name: conditional-operator.swift
-            begin: (?<=\s)(\?)\s*
+            begin: (?<=\s)(\?)(?=[^-/=+!*%<>&|^~])\s*
             beginCaptures:
                 '1': {name: keyword.operator.swift}
             end: ":"
@@ -589,7 +617,7 @@ repository:
             match: |
               (?x)
               (?!/\*|\*/|//)
-              ( [-/=+!*%<>&|^~]+
+              ( [-/=+!*%<>&|^~?]+
               | \.\.<
               | \.\.+
               )
