@@ -541,6 +541,38 @@ repository:
                     '1': {name: support.function.swift}
               - include: '#expression'
 
+          # - name: expression.closure-application.swift
+          #   match: |
+          #       (?x)
+          #       (?:
+          #           \b
+          #           (init)
+          #       |
+          #           \b
+          #           ( \b[_a-zA-Z][_a-zA-Z0-9]*\b
+          #           | `[_a-zA-Z][_a-zA-Z0-9]*`
+          #           )
+          #       |
+          #           \[
+          #           \s*
+          #           ( \b[_a-zA-Z][_a-zA-Z0-9]*\b
+          #           | `[_a-zA-Z][_a-zA-Z0-9]*`
+          #           )
+          #           (?:
+          #               \s*,\s*
+          #               ( \b[_a-zA-Z][_a-zA-Z0-9]*\b
+          #               | `[_a-zA-Z][_a-zA-Z0-9]*`
+          #               )
+          #           )*
+          #           \]
+          #       )
+          #       (?=\s*\{)
+          #   captures:
+          #       '1': {name: keyword.init.swift}
+          #       '2': {name: support.function.swift}
+          #       '3': {name: support.type.identifier.swift}
+          #       '4': {name: support.type.identifier.swift}
+
           - name: keyword.self.swift
             match: \b(self)\b
 
