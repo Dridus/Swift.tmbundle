@@ -385,7 +385,7 @@ repository:
                 ( \b[_a-zA-Z][_a-zA-Z0-9]*\b
                 | `[_a-zA-Z][_a-zA-Z0-9]*`
                 )
-                \s*=
+                \s*(?:=|$)
             beginCaptures:
                 '1': {name: keyword.typealias.swift}
                 '2': {name: entity.name.type.swift}
