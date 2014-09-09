@@ -414,7 +414,7 @@ repository:
             patterns:
               - include: '#type'
 
-          - name: keyword.var.swift
+          - name: variable-pattern.swift
             match: |
                 (?x)
                 \b
