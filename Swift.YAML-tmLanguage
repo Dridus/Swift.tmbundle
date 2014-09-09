@@ -199,6 +199,18 @@ repository:
                 patterns:
                   - include: '#type'
 
+              - name: variable.swift
+                match: |
+                    (?x)
+                    \b
+                    ( \b[_a-zA-Z][_a-zA-Z0-9]*\b
+                    | `[_a-zA-Z][_a-zA-Z0-9]*`
+                    )
+                    \s*
+                    (?=:)
+                captures:
+                    '1': {name: variable.swift}
+
               - include: '#pattern'
 
 
