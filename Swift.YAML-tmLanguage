@@ -249,6 +249,8 @@ repository:
                     patterns:
                       - include: '#statement'
 
+                  - include: '#statement'
+
           - name: struct-class-protocol-extension-declaration.swift
             begin: |
                 (?x)
