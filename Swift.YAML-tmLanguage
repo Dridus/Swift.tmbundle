@@ -674,7 +674,7 @@ repository:
             end: \}
             patterns:
               - name: closure-signature.swift
-                begin: \(
+                begin: (?<=\{)\s*\(
                 end: \)
                 patterns:
                   - name: variable.parameter.untyped.swift
@@ -692,8 +692,13 @@ repository:
 
                   - include: "#tuple-type"
 
-              - name: keyword.in.swift
-                match: \bin\b
+              - name: closure-body.swift
+                begin: \b(in)\s+
+                beginCaptures:
+                    '1': {name: keyword.in.swift}
+                end: (?=\})
+                patterns:
+                  - include: '#statement'
 
               - include: '#statement'
 
