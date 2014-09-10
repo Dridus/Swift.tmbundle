@@ -128,7 +128,7 @@ repository:
             end: (?=\{)|$
             patterns:
               - name: generic-parameter-clause.swift
-                begin: "<"
+                begin: "<(?![-/=+!*%<>&|^~]+)"
                 end: ">"
                 patterns:
                   - include: '#generic-parameter-clause'
@@ -488,7 +488,7 @@ repository:
 
           - name: generic-argument-clause.swift
             begin: |
-                (?x)(?<![.-/=+!*%<>&|^~])<
+                (?x)(?<![.-/=+!*%<>&|^~])<(?![-/=+!*%<>&|^~]+)
             end: ">"
             patterns:
               - include: '#type'
@@ -531,7 +531,7 @@ repository:
                     \]
                 )
                 \s*
-                (?=\<)
+                (?=\<[^-/=+!*%<>&|^~])
             beginCaptures:
                 '1': {name: keyword.init.swift}
                 '2': {name: support.function.swift}
@@ -540,7 +540,7 @@ repository:
             end: (?<=\))|(?=\{)
             patterns:
               - name: generic-argument-clause.swift
-                begin: "<"
+                begin: "<(?![-/=+!*%<>&|^~]+)"
                 end: ">"
                 patterns:
                   - include: "#type"
