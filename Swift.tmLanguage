@@ -329,7 +329,7 @@
 					<array>
 						<dict>
 							<key>begin</key>
-							<string>&lt;</string>
+							<string>&lt;(?![-/=+!*%&lt;&gt;&amp;|^~]+)</string>
 							<key>end</key>
 							<string>&gt;</string>
 							<key>name</key>
@@ -767,10 +767,6 @@
 							<key>patterns</key>
 							<array>
 								<dict>
-									<key>include</key>
-									<string>#declaration</string>
-								</dict>
-								<dict>
 									<key>begin</key>
 									<string>\b(case)\s+</string>
 									<key>beginCaptures</key>
@@ -900,6 +896,10 @@
 										</dict>
 									</array>
 								</dict>
+								<dict>
+									<key>include</key>
+									<string>#statement</string>
+								</dict>
 							</array>
 						</dict>
 						<dict>
@@ -968,7 +968,7 @@
 				</dict>
 				<dict>
 					<key>begin</key>
-					<string>(?x)(?&lt;![.-/=+!*%&lt;&gt;&amp;|^~])&lt;
+					<string>(?x)(?&lt;![.-/=+!*%&lt;&gt;&amp;|^~])&lt;(?![-/=+!*%&lt;&gt;&amp;|^~]+)
 </string>
 					<key>end</key>
 					<string>&gt;</string>
@@ -1023,7 +1023,7 @@
     \]
 )
 \s*
-(?=\&lt;)
+(?=\&lt;[^-/=+!*%&lt;&gt;&amp;|^~])
 </string>
 					<key>beginCaptures</key>
 					<dict>
@@ -1056,7 +1056,7 @@
 					<array>
 						<dict>
 							<key>begin</key>
-							<string>&lt;</string>
+							<string>&lt;(?![-/=+!*%&lt;&gt;&amp;|^~]+)</string>
 							<key>end</key>
 							<string>&gt;</string>
 							<key>name</key>
@@ -1268,7 +1268,7 @@
 					<array>
 						<dict>
 							<key>begin</key>
-							<string>\(</string>
+							<string>(?&lt;=\{)\s*\(</string>
 							<key>end</key>
 							<string>\)</string>
 							<key>name</key>
@@ -1304,10 +1304,27 @@
 							</array>
 						</dict>
 						<dict>
-							<key>match</key>
-							<string>\bin\b</string>
+							<key>begin</key>
+							<string>\b(in)\s+</string>
+							<key>beginCaptures</key>
+							<dict>
+								<key>1</key>
+								<dict>
+									<key>name</key>
+									<string>keyword.in.swift</string>
+								</dict>
+							</dict>
+							<key>end</key>
+							<string>(?=\})</string>
 							<key>name</key>
-							<string>keyword.in.swift</string>
+							<string>closure-body.swift</string>
+							<key>patterns</key>
+							<array>
+								<dict>
+									<key>include</key>
+									<string>#statement</string>
+								</dict>
+							</array>
 						</dict>
 						<dict>
 							<key>include</key>
@@ -1920,6 +1937,80 @@
 							</array>
 						</dict>
 						<dict>
+							<key>begin</key>
+							<string>\b(let|var)\s+</string>
+							<key>beginCaptures</key>
+							<dict>
+								<key>1</key>
+								<dict>
+									<key>name</key>
+									<string>keyword.letvar.swift</string>
+								</dict>
+							</dict>
+							<key>end</key>
+							<string>(?=\{)</string>
+							<key>name</key>
+							<string>if-expression-letvar.swift</string>
+							<key>patterns</key>
+							<array>
+								<dict>
+									<key>begin</key>
+									<string>=</string>
+									<key>end</key>
+									<string>(?=[,{])</string>
+									<key>name</key>
+									<string>pattern-initializer.swift</string>
+									<key>patterns</key>
+									<array>
+										<dict>
+											<key>include</key>
+											<string>#expression</string>
+										</dict>
+									</array>
+								</dict>
+								<dict>
+									<key>begin</key>
+									<string>:</string>
+									<key>end</key>
+									<string>(?=[,=\{])|$</string>
+									<key>name</key>
+									<string>let-type-ascription.swift</string>
+									<key>patterns</key>
+									<array>
+										<dict>
+											<key>include</key>
+											<string>#type</string>
+										</dict>
+									</array>
+								</dict>
+								<dict>
+									<key>captures</key>
+									<dict>
+										<key>1</key>
+										<dict>
+											<key>name</key>
+											<string>variable.swift</string>
+										</dict>
+									</dict>
+									<key>match</key>
+									<string>(?x)
+\b
+( \b[_a-zA-Z][_a-zA-Z0-9]*\b
+| `[_a-zA-Z][_a-zA-Z0-9]*`
+)
+\s*
+(?=:)
+</string>
+									<key>name</key>
+									<string>variable.swift</string>
+								</dict>
+								<dict>
+									<key>include</key>
+									<string>#pattern</string>
+								</dict>
+							</array>
+						</dict>
+						<dict>
 							<key>include</key>
 							<string>#declaration</string>
 						</dict>
@@ -1971,7 +2062,7 @@
 										</dict>
 									</dict>
 									<key>match</key>
-									<string>\b(default):</string>
+									<string>\b(default)(?=:)</string>
 									<key>name</key>
 									<string>clause.casedefault.swift</string>
 								</dict>
