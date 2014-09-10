@@ -983,6 +983,39 @@ repository:
                 patterns:
                   - include: '#statement'
 
+              - name: if-expression-letvar.swift
+                begin: \b(let|var)\s+
+                beginCaptures:
+                    '1': {name: keyword.letvar.swift}
+                end: (?=\{)
+                patterns:
+                  - name: pattern-initializer.swift
+                    begin: "="
+                    end: "(?=[,{])"
+                    patterns:
+                      - include: '#expression'
+
+                  - name: let-type-ascription.swift
+                    begin: ":"
+                    end: (?=[,=\{])|$
+                    patterns:
+                      - include: '#type'
+
+                  - name: variable.swift
+                    match: |
+                        (?x)
+                        \b
+                        ( \b[_a-zA-Z][_a-zA-Z0-9]*\b
+                        | `[_a-zA-Z][_a-zA-Z0-9]*`
+                        )
+                        \s*
+                        (?=:)
+                    captures:
+                        '1': {name: variable.swift}
+
+                  - include: '#pattern'
+
+
               - include: '#declaration'
 
               - include: '#expression'
