@@ -1001,7 +1001,7 @@ repository:
                 end: \}
                 patterns:
                   - name: clause.casedefault.swift
-                    match: '\b(default):'
+                    match: '\b(default)(?=:)'
                     captures:
                         '1': {name: keyword.default.swift}
 
