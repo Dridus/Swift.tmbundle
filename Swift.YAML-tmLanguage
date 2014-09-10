@@ -307,8 +307,6 @@ repository:
                 begin: \{
                 end: \}
                 patterns:
-                  - include: '#declaration'
-
                   - name: declaration.case.swift
                     begin: \b(case)\s+
                     beginCaptures:
@@ -370,6 +368,9 @@ repository:
                                 '1': {name: variable.parameter.type.swift}
 
                           - include: '#type'
+
+                  - include: '#statement'
+
 
               - match: "[:,]"
 
