@@ -968,7 +968,7 @@
 				</dict>
 				<dict>
 					<key>begin</key>
-					<string>(?x)(?&lt;![.-/=+!*%&lt;&gt;&amp;|^~])&lt;(?![-/=+!*%&lt;&gt;&amp;|^~]+)
+					<string>(?x)(?&lt;![.-/=+!*%&lt;&gt;&amp;|^~])&lt;(?!\s|[-/=+!*%&lt;&gt;&amp;|^~]+)
 </string>
 					<key>end</key>
 					<string>&gt;</string>
@@ -1023,7 +1023,7 @@
     \]
 )
 \s*
-(?=\&lt;[^-/=+!*%&lt;&gt;&amp;|^~])
+(?=\&lt;[^ -/=+!*%&lt;&gt;&amp;|^~])
 </string>
 					<key>beginCaptures</key>
 					<dict>

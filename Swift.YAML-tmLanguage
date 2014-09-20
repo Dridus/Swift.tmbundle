@@ -489,7 +489,7 @@ repository:
 
           - name: generic-argument-clause.swift
             begin: |
-                (?x)(?<![.-/=+!*%<>&|^~])<(?![-/=+!*%<>&|^~]+)
+                (?x)(?<![.-/=+!*%<>&|^~])<(?!\s|[-/=+!*%<>&|^~]+)
             end: ">"
             patterns:
               - include: '#type'
@@ -532,7 +532,7 @@ repository:
                     \]
                 )
                 \s*
-                (?=\<[^-/=+!*%<>&|^~])
+                (?=\<[^ -/=+!*%<>&|^~])
             beginCaptures:
                 '1': {name: keyword.init.swift}
                 '2': {name: support.function.swift}
