@@ -561,7 +561,7 @@ repository:
                     captures:
                         '1': {name: support.function.swift}
 
-                  - include: "#tuple-type"
+                  - include: "#expression"
 
           - name: expression.application.swift
             begin: |

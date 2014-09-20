@@ -1100,7 +1100,7 @@
 								</dict>
 								<dict>
 									<key>include</key>
-									<string>#tuple-type</string>
+									<string>#expression</string>
 								</dict>
 							</array>
 						</dict>
