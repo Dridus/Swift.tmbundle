@@ -1218,7 +1218,7 @@
 						<key>1</key>
 						<dict>
 							<key>name</key>
-							<string>punctuation.typeascription.swift</string>
+							<string>keyword.typeascription.swift</string>
 						</dict>
 						<key>2</key>
 						<dict>
@@ -1227,7 +1227,7 @@
 						</dict>
 					</dict>
 					<key>end</key>
-					<string>\s|$</string>
+					<string>(?=\s|\]|[\),])|$</string>
 					<key>name</key>
 					<string>expression.type.swift</string>
 					<key>patterns</key>
@@ -2053,6 +2053,29 @@
 							<key>patterns</key>
 							<array>
 								<dict>
+									<key>begin</key>
+									<string>\b(where)\b</string>
+									<key>beginCaptures</key>
+									<dict>
+										<key>1</key>
+										<dict>
+											<key>name</key>
+											<string>keyword.where.swift</string>
+										</dict>
+									</dict>
+									<key>end</key>
+									<string>(?=:)</string>
+									<key>name</key>
+									<string>clause.caseguard.swift</string>
+									<key>patterns</key>
+									<array>
+										<dict>
+											<key>include</key>
+											<string>#expression</string>
+										</dict>
+									</array>
+								</dict>
+								<dict>
 									<key>captures</key>
 									<dict>
 										<key>1</key>
@@ -2078,15 +2101,7 @@
 										</dict>
 									</dict>
 									<key>end</key>
-									<string>(?=:)|(where)</string>
-									<key>endCaptures</key>
-									<dict>
-										<key>1</key>
-										<dict>
-											<key>name</key>
-											<string>keyword.where.swift</string>
-										</dict>
-									</dict>
+									<string>(?=:|\bwhere\b)</string>
 									<key>name</key>
 									<string>clause.case.swift</string>
 									<key>patterns</key>

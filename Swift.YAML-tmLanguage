@@ -656,9 +656,9 @@ repository:
                 \b(is|as\??)
                 \s+
             beginCaptures:
-                '1': {name: punctuation.typeascription.swift}
+                '1': {name: keyword.typeascription.swift}
                 '2': {name: keyword.operator.type.swift}
-            end: \s|$
+            end: (?=\s|\]|[\),])|$
             patterns:
               - include: '#type'
 
@@ -1039,6 +1039,14 @@ repository:
                 begin: \{
                 end: \}
                 patterns:
+                  - name: clause.caseguard.swift
+                    begin: \b(where)\b
+                    beginCaptures:
+                        '1': {name: keyword.where.swift}
+                    end: (?=:)
+                    patterns:
+                      - include: '#expression'
+
                   - name: clause.casedefault.swift
                     match: '\b(default)(?=:)'
                     captures:
@@ -1048,9 +1056,7 @@ repository:
                     begin: \b(case)\s+
                     beginCaptures:
                         '1': {name: keyword.case.swift}
-                    end: (?=:)|(where)
-                    endCaptures:
-                        '1': {name: keyword.where.swift}
+                    end: (?=:|\bwhere\b)
                     patterns:
                       - include: '#pattern'
 
