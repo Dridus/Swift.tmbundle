@@ -114,11 +114,11 @@ repository:
                     | `[_a-zA-Z][_a-zA-Z0-9]*`
                     | [-/=+!*%<>&|^~]+?(?=\s*[<(][^-/=+!*%<>&|^~ ])
                     )
-                |   (init)
-                |   (deinit)
-                |   (subscript)
+                |   (init)\b
+                |   (deinit)\b
+                |   (subscript)\b
                 )
-                \s*
+
             beginCaptures:
                 '1': {name: keyword.func.swift}
                 '2': {name: entity.name.function.swift}

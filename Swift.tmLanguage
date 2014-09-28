@@ -287,11 +287,10 @@
     | `[_a-zA-Z][_a-zA-Z0-9]*`
     | [-/=+!*%&lt;&gt;&amp;|^~]+?(?=\s*[&lt;(][^-/=+!*%&lt;&gt;&amp;|^~ ])
     )
-|   (init)
-|   (deinit)
-|   (subscript)
+|   (init)\b
+|   (deinit)\b
+|   (subscript)\b
 )
-\s*
 </string>
 					<key>beginCaptures</key>
 					<dict>
