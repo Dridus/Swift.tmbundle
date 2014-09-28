@@ -676,7 +676,7 @@ repository:
             patterns:
               - name: closure-signature.swift
                 begin: (?<=\{)\s*\(
-                end: \)
+                end: (?=\bin\b)
                 patterns:
                   - name: variable.parameter.untyped.swift
                     match: |

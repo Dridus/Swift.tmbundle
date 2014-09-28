@@ -1269,7 +1269,7 @@
 							<key>begin</key>
 							<string>(?&lt;=\{)\s*\(</string>
 							<key>end</key>
-							<string>\)</string>
+							<string>(?=\bin\b)</string>
 							<key>name</key>
 							<string>closure-signature.swift</string>
 							<key>patterns</key>
