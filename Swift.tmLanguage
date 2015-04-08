@@ -511,27 +511,6 @@
 							</array>
 						</dict>
 						<dict>
-							<key>captures</key>
-							<dict>
-								<key>1</key>
-								<dict>
-									<key>name</key>
-									<string>variable.swift</string>
-								</dict>
-							</dict>
-							<key>match</key>
-							<string>(?x)
-\b
-( \b[_a-zA-Z][_a-zA-Z0-9]*\b
-| `[_a-zA-Z][_a-zA-Z0-9]*`
-)
-\s*
-(?=:)
-</string>
-							<key>name</key>
-							<string>variable.swift</string>
-						</dict>
-						<dict>
 							<key>include</key>
 							<string>#pattern</string>
 						</dict>
@@ -554,11 +533,6 @@
 						<dict>
 							<key>name</key>
 							<string>keyword.other.binding.swift</string>
-						</dict>
-						<key>2</key>
-						<dict>
-							<key>name</key>
-							<string>variable.swift</string>
 						</dict>
 					</dict>
 					<key>end</key>
@@ -641,7 +615,7 @@
 (?:(struct)|(class)|(protocol)|(extension))\s+
 (?!class|deinit|enum|extension|func|import|init|internal|let|operator|private|protocol
 |public|static|struct|subscript|typealias|var|break|case|continue|default|do|else
-|fallthrough|for|if|in|return|switch|where|while|as|dynamicType|false|is|nil|self|Self
+|fallthrough|for|if|in|return|switch|where|while|as[!?]?|dynamicType|false|is|nil|self|Self
 |super|true|__COLUMN__|__FILE__|__FUNCTION__|and __LINE__)
 ( \b[_a-zA-Z][_a-zA-Z0-9]*\b
 | `[_a-zA-Z][_a-zA-Z0-9]*`
@@ -1217,7 +1191,7 @@
 				<dict>
 					<key>begin</key>
 					<string>(?x)
-\b(is|as\??)
+\b(is|as[?!]?)
 \s+
 </string>
 					<key>beginCaptures</key>
@@ -1447,17 +1421,6 @@
 			<key>patterns</key>
 			<array>
 				<dict>
-					<key>match</key>
-					<string>(?x)
-(?!\b(?:as|is|let|var)\b)
-( \b[_a-zA-Z][_a-zA-Z0-9]*\b
-| `[_a-zA-Z][_a-zA-Z0-9]*`
-)
-</string>
-					<key>name</key>
-					<string>variable.swift</string>
-				</dict>
-				<dict>
 					<key>include</key>
 					<string>#pattern</string>
 				</dict>
@@ -1659,7 +1622,7 @@
 				</dict>
 				<dict>
 					<key>begin</key>
-					<string>\bas\s+</string>
+					<string>\bas[?!]?\s+</string>
 					<key>end</key>
 					<string>(?=\bas|[=,:]|\))</string>
 					<key>name</key>
@@ -1695,11 +1658,6 @@
 							<key>name</key>
 							<string>keyword.var.swift</string>
 						</dict>
-						<key>2</key>
-						<dict>
-							<key>name</key>
-							<string>variable.swift</string>
-						</dict>
 					</dict>
 					<key>match</key>
 					<string>(?x)
@@ -1719,11 +1677,6 @@
 						<dict>
 							<key>name</key>
 							<string>keyword.let.swift</string>
-						</dict>
-						<key>2</key>
-						<dict>
-							<key>name</key>
-							<string>variable.swift</string>
 						</dict>
 					</dict>
 					<key>match</key>
@@ -1763,16 +1716,6 @@
 </string>
 					<key>name</key>
 					<string>enum-case-pattern.swift</string>
-				</dict>
-				<dict>
-					<key>match</key>
-					<string>(?x)
-( \b[_a-zA-Z][_a-zA-Z0-9]*\b
-| `[_a-zA-Z][_a-zA-Z0-9]*`
-)
-</string>
-					<key>name</key>
-					<string>support.type.identifier</string>
 				</dict>
 				<dict>
 					<key>begin</key>
@@ -1955,7 +1898,7 @@
 								</dict>
 							</dict>
 							<key>end</key>
-							<string>(?=\{)</string>
+							<string>(?=\{|\bwhere\b)</string>
 							<key>name</key>
 							<string>if-expression-letvar.swift</string>
 							<key>patterns</key>
@@ -1963,8 +1906,16 @@
 								<dict>
 									<key>begin</key>
 									<string>=</string>
+									<key>captures</key>
+									<dict>
+										<key>0</key>
+										<dict>
+											<key>name</key>
+											<string>keyword.operator.swift</string>
+										</dict>
+									</dict>
 									<key>end</key>
-									<string>(?=[,{])</string>
+									<string>(?=[,{]|\bwhere\b)</string>
 									<key>name</key>
 									<string>pattern-initializer.swift</string>
 									<key>patterns</key>
@@ -1991,29 +1942,31 @@
 									</array>
 								</dict>
 								<dict>
-									<key>captures</key>
-									<dict>
-										<key>1</key>
-										<dict>
-											<key>name</key>
-											<string>variable.swift</string>
-										</dict>
-									</dict>
-									<key>match</key>
-									<string>(?x)
-\b
-( \b[_a-zA-Z][_a-zA-Z0-9]*\b
-| `[_a-zA-Z][_a-zA-Z0-9]*`
-)
-\s*
-(?=:)
-</string>
-									<key>name</key>
-									<string>variable.swift</string>
-								</dict>
-								<dict>
 									<key>include</key>
 									<string>#pattern</string>
+								</dict>
+							</array>
+						</dict>
+						<dict>
+							<key>begin</key>
+							<string>\b(where)\s+</string>
+							<key>beginCaptures</key>
+							<dict>
+								<key>1</key>
+								<dict>
+									<key>name</key>
+									<string>keyword.where.swift</string>
+								</dict>
+							</dict>
+							<key>end</key>
+							<string>(?=\{)</string>
+							<key>name</key>
+							<string>if-expression-where.swift</string>
+							<key>patterns</key>
+							<array>
+								<dict>
+									<key>include</key>
+									<string>#expression</string>
 								</dict>
 							</array>
 						</dict>

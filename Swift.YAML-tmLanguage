@@ -189,6 +189,8 @@ repository:
               - name: pattern-initializer.swift
                 begin: "="
                 end: "(?=,)|$"
+                captures:
+                    '0': {name: keyword.operator.swift}
                 patterns:
                   - include: '#expression'
 
@@ -197,18 +199,6 @@ repository:
                 end: (?=[,=])|$
                 patterns:
                   - include: '#type'
-
-              - name: variable.swift
-                match: |
-                    (?x)
-                    \b
-                    ( \b[_a-zA-Z][_a-zA-Z0-9]*\b
-                    | `[_a-zA-Z][_a-zA-Z0-9]*`
-                    )
-                    \s*
-                    (?=:)
-                captures:
-                    '1': {name: variable.swift}
 
               - include: '#pattern'
 
@@ -225,7 +215,6 @@ repository:
                 (?::|(?==))
             beginCaptures:
                 '1': {name: keyword.other.binding.swift}
-                '2': {name: variable.swift}
             end: '=|$'
             patterns:
               - include: '#type'
@@ -257,7 +246,7 @@ repository:
                 (?:(struct)|(class)|(protocol)|(extension))\s+
                 (?!class|deinit|enum|extension|func|import|init|internal|let|operator|private|protocol
                 |public|static|struct|subscript|typealias|var|break|case|continue|default|do|else
-                |fallthrough|for|if|in|return|switch|where|while|as|dynamicType|false|is|nil|self|Self
+                |fallthrough|for|if|in|return|switch|where|while|as[!?]?|dynamicType|false|is|nil|self|Self
                 |super|true|__COLUMN__|__FILE__|__FUNCTION__|and __LINE__)
                 ( \b[_a-zA-Z][_a-zA-Z0-9]*\b
                 | `[_a-zA-Z][_a-zA-Z0-9]*`
@@ -397,14 +386,6 @@ repository:
 
     identifier-pattern:
         patterns:
-          - name: variable.swift
-            match: |
-                (?x)
-                (?!\b(?:as|is|let|var)\b)
-                ( \b[_a-zA-Z][_a-zA-Z0-9]*\b
-                | `[_a-zA-Z][_a-zA-Z0-9]*`
-                )
-
           - include: '#pattern'
 
     pattern:
@@ -415,7 +396,7 @@ repository:
             match: \b_\b
 
           - name: keyword.as.swift
-            begin: \bas\s+
+            begin: \bas[?!]?\s+
             end: (?=\bas|[=,:]|\))
             patterns:
               - include: '#type'
@@ -436,7 +417,6 @@ repository:
                 )?
             captures:
                 '1': {name: keyword.var.swift}
-                '2': {name: variable.swift}
 
           - name: keyword.let.swift
             match: |
@@ -448,7 +428,6 @@ repository:
                 )?
             captures:
                 '1': {name: keyword.let.swift}
-                '2': {name: variable.swift}
 
           - name: enum-case-pattern.swift
             match: |
@@ -463,13 +442,6 @@ repository:
             captures:
                 '1': {name: support.type.identifier.swift}
                 '2': {name: support.function.swift}
-
-          - name: support.type.identifier
-            match: |
-                (?x)
-                ( \b[_a-zA-Z][_a-zA-Z0-9]*\b
-                | `[_a-zA-Z][_a-zA-Z0-9]*`
-                )
 
           - name: tuple-pattern.swift
             begin: \(
@@ -653,7 +625,7 @@ repository:
           - name: expression.type.swift
             begin: |
                 (?x)
-                \b(is|as\??)
+                \b(is|as[?!]?)
                 \s+
             beginCaptures:
                 '1': {name: keyword.typeascription.swift}
@@ -993,11 +965,13 @@ repository:
                 begin: \b(let|var)\s+
                 beginCaptures:
                     '1': {name: keyword.letvar.swift}
-                end: (?=\{)
+                end: (?=\{|\bwhere\b)
                 patterns:
                   - name: pattern-initializer.swift
                     begin: "="
-                    end: "(?=[,{])"
+                    end: (?=[,{]|\bwhere\b)
+                    captures:
+                        '0': {name: keyword.operator.swift}
                     patterns:
                       - include: '#expression'
 
@@ -1007,19 +981,15 @@ repository:
                     patterns:
                       - include: '#type'
 
-                  - name: variable.swift
-                    match: |
-                        (?x)
-                        \b
-                        ( \b[_a-zA-Z][_a-zA-Z0-9]*\b
-                        | `[_a-zA-Z][_a-zA-Z0-9]*`
-                        )
-                        \s*
-                        (?=:)
-                    captures:
-                        '1': {name: variable.swift}
-
                   - include: '#pattern'
+
+              - name: if-expression-where.swift
+                begin: \b(where)\s+
+                beginCaptures:
+                    '1': {name: keyword.where.swift}
+                end: (?=\{)
+                patterns:
+                 - include: '#expression'
 
 
               - include: '#declaration'
